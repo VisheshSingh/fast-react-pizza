@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SearchOrder from '../features/order/SearchOrder';
 
 const Header = () => {
-  return <Link to='/'>Fast React Pizza</Link>;
+  return (
+    <div>
+      <Link to='/'>Fast React Pizza</Link>
+      <SearchOrder />
+    </div>
+  );
 };
 
 export default Header;
