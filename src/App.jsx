@@ -1,19 +1,19 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Home from './ui/Home';
 import Error from './ui/Error';
-import Menu, { loader as MenuLoader } from './features/menu/Menu';
+import Menu, { loader as menuLoader } from './features/menu/Menu';
 import Cart from './features/cart/Cart';
 import CreateOrder, {
   action as createOrderAction,
 } from './features/order/CreateOrder';
-import Order, { loader as OrderLoader } from './features/order/Order';
-import './index.css';
+import Order, { loader as orderLoader } from './features/order/Order';
 import AppLayout from './ui/AppLayout';
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    errorElement: <Error />,
 
     children: [
       {
@@ -23,13 +23,10 @@ const router = createBrowserRouter([
       {
         path: '/menu',
         element: <Menu />,
-        loader: MenuLoader,
+        loader: menuLoader,
         errorElement: <Error />,
       },
-      {
-        path: '/cart',
-        element: <Cart />,
-      },
+      { path: '/cart', element: <Cart /> },
       {
         path: '/order/new',
         element: <CreateOrder />,
@@ -38,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: '/order/:orderId',
         element: <Order />,
-        loader: OrderLoader,
+        loader: orderLoader,
         errorElement: <Error />,
       },
     ],
@@ -46,11 +43,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return (
-    <RouterProvider router={router}>
-      <h1>fast react pizza</h1>
-    </RouterProvider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
