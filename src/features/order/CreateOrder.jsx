@@ -3,6 +3,8 @@ import Button from "../../ui/Button";
 import { useSelector } from "react-redux";
 import EmptyCart from "../cart/EmptyCart";
 import { createOrder } from "../../services/apiRestaurant";
+import store from "../../store";
+import { clearCart } from "../cart/cartSlice";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -108,6 +110,8 @@ export async function action({ request }) {
   // If everything is okay, create new order and redirect
 
   const newOrder = await createOrder(order);
+
+  store.dispatch(clearCart());
 
   return redirect(`/order/${newOrder.id}`);
 
