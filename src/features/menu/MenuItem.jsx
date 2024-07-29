@@ -3,12 +3,13 @@ import Button from "../../ui/Button";
 import { formatCurrency } from "../../utils/helpers";
 import { addItem, getItemFromCart } from "../cart/cartSlice";
 import DeleteItem from "../cart/DeleteItem";
+import UpdateItemQuantity from "../cart/UpdateItemQuantity";
 
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
   const dispatch = useDispatch();
-  const currenQuantity = useSelector(getItemFromCart(id));
-  const isInCart = currenQuantity > 0;
+  const currentQuantity = useSelector(getItemFromCart(id));
+  const isInCart = currentQuantity > 0;
 
   const handleAddItemToCart = () => {
     const newItem = {
@@ -43,7 +44,12 @@ function MenuItem({ pizza }) {
             </p>
           )}
 
-          {!soldOut && isInCart && <DeleteItem pizzaId={id} />}
+          {!soldOut && isInCart && (
+            <div className="flex items-center gap-4 sm:gap-8">
+              <UpdateItemQuantity pizzaId={id} />
+              <DeleteItem pizzaId={id} />
+            </div>
+          )}
 
           {!soldOut && !isInCart && (
             <Button type="small" onClick={handleAddItemToCart}>
